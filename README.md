@@ -12,13 +12,12 @@
 
 | 類別 | 技術 |
 | --- | --- |
-| 前端 | HTML、CSS（自訂府城印章風配色）、jQuery、Vue.js（統計圖表） |
+| 前端 | HTML、CSS、jQuery、Vue.js|
 | 後端 | Python、Flask |
 | 資料庫 | SQLite |
-| 設計 | Figma（設計稿）、Google Places API（景點真實照片）、AI 生成圖像（補充素材） |
+| 設計 | Figma、Google Places API、AI 生成圖像|
 | 版本管理 | Git、GitHub |
 
-> 前端圖表用的圖表套件（例如 Chart.js）、部署方式如果有實際採用，請在這裡補上一列。
 
 ## 系統功能說明
 
@@ -26,11 +25,48 @@
 | --- | --- | --- |
 | 首頁（index.html） | 專題介紹與導覽入口 | `docs/screenshots/home.png` |
 | 景點列表（attractions1.html） | 卡片呈現景點資料，可用分類（古蹟／美食／熱門景點／自然景觀）篩選、關鍵字搜尋、切換每頁筆數與分頁瀏覽 | `docs/screenshots/attractions.png` |
-| 景點詳細（detail1.html） | 左圖右文雙欄式版型，顯示景點圖片、分類、地址、開放時間、票價、官網連結、相關活動，並附圖片輪播 | `docs/screenshots/detail.png` |
-| 管理頁（admin.html） | 新增／編輯／刪除景點的表單與資料表，需登入後才能進入 | `docs/screenshots/admin.png` |
-| 統計圖表 | 用 Vue.js 串接真實資料庫資料，呈現各分類景點數量長條圖 | `docs/screenshots/charts.png` |
+| 景點詳細（detail1.html） | 左圖右文雙欄式版型，顯示景點圖片、分類、地址、開放時間、票價、官網連結、相關活動，並附圖片輪播 | `docs/screenshots/details.png` |
+| 管理頁（admin.html） | 新增／編輯／刪除景點的表單與資料表，需登入後才能進入 | `docs/screenshots/admin1.png`、`docs/screenshots/admin2.png` |
+| 統計圖表 | 用 Vue.js 串接真實資料庫資料，呈現各分類景點數量長條圖 | `docs/screenshots/cahrts.png` |
 
-> 截圖請放在 `docs/screenshots/` 資料夾，檔名可比照上表。
+### 專案畫面截圖
+
+#### 首頁
+
+![首頁畫面](docs/screenshots/home.png)
+
+#### 景點列表
+
+![景點列表畫面](docs/screenshots/attractions.png)
+
+#### 景點詳細
+
+![景點詳細畫面](docs/screenshots/details.png)
+
+#### 管理頁面
+
+![管理頁畫面 1](docs/screenshots/admin1.png)
+
+![管理頁畫面 2](docs/screenshots/admin2.png)
+
+#### 統計圖表
+
+![統計圖表畫面](docs/screenshots/cahrts.png)
+
+### RWD 檢查截圖
+
+#### 桌機寬度 1200px
+
+![桌機寬度 1200px](docs/screenshots/home.png)
+
+#### 平板寬度 768px
+
+![平板寬度 768px](docs/screenshots/rwd768.png)
+
+#### 手機寬度 375px
+
+![手機寬度 375px](docs/screenshots/rwd375.png)
+
 
 ## 資料庫設計說明
 
@@ -74,7 +110,6 @@
 
 `attraction_details` 與 `attraction_events` 皆以 `attraction_id` 對應 `attractions.id`，為一對一／一對多關聯；景點詳細頁透過後端 JOIN 查詢，一次取回景點基本資料、詳細資訊與相關活動。
 
-> 請依實際欄位型別與是否有 NOT NULL／UNIQUE 等限制修正上表。
 
 ## API 說明
 
@@ -87,7 +122,6 @@
 | PATCH | `/attractions/<id>` | 修改景點（部分欄位更新） |
 | DELETE | `/attractions/<id>` | 刪除景點 |
 
-> 如果有另外做統計圖表用的 API（例如 `/attractions/stats`），或分類／搜尋是後端支援而非前端處理，請補上對應路徑與參數說明。
 
 ## 管理頁登入驗證
 
@@ -104,24 +138,23 @@ document.querySelectorAll(".admin-link").forEach(function (link) {
 });
 ```
 
-> 這裡只做前端攔截，如果 admin.html 的操作（新增／編輯／刪除）本身沒有後端權限驗證，建議補充說明，或註記此為專題展示用的簡化版本。
 
 ## AI 功能說明
 
 專題名稱包含「AI輔助」，AI 輔助的部分包括：
 
 - 景點圖片：40 筆景點資料優先使用 Google Places API 取得現成真實照片，缺圖或需要補充素材的景點再用 AI 生成圖像。
-- （請依實際使用情況補充：AI 是否也用於生成景點介紹文字、推薦文案，或其他生成內容？）
+- 景點內容:景點的文案與開放資訊等全部內容皆由chatgpt生成
+- 分類建議:古蹟、美食、自然景觀、熱門景點
 
 ## 測試紀錄
 
 | 日期 | 測試項目 | 測試方法 | 結果 |
 | --- | --- | --- | --- |
-| | Flask API 語法檢查 | | |
-| | 景點列表 CRUD 測試 | | |
-| | 管理頁登入攔截測試 | | |
+|2026-08-09 | Flask API 語法檢查 |執行py app.py |通過 |
+|2026-08-09 | 景點列表 CRUD 測試 | 呼叫 DELETE/attractions/2|景點資料刪除成功 |
+|2026-08-09 | 管理頁登入攔截測試 |點擊管理頁面 |跳回login.html |
 
-> 請填入實際測試日期與方法（例如用 Postman／瀏覽器手動測試 CRUD 各項操作）。
 
 ## 安裝與執行方式
 
@@ -149,12 +182,11 @@ python -m venv .venv
 http://127.0.0.1:5000
 ```
 
-> 目前前端程式碼裡的 API_BASE 是寫死的區網 IP（`http://192.168.60.11:5000`），正式上傳 GitHub／要讓別人在自己電腦跑起來之前，建議改成 `http://127.0.0.1:5000` 或用相對路徑，否則別人本機執行會連不到後端。
 
 ## 開發者資訊
 
 | 項目 | 內容 |
 | --- | --- |
-| 開發者 | Beem |
+| 開發者 |Liang|
 | 專題名稱 | AI輔助旅遊景點推薦平台（台南旅遊巡禮） |
 | GitHub Repository |https://github.com/flag78631-bot/userpage|
