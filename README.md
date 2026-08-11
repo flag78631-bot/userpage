@@ -123,22 +123,6 @@
 | DELETE | `/attractions/<id>` | 刪除景點 |
 
 
-## 管理頁登入驗證
-
-管理頁採前端登入狀態檢查：使用者點擊導覽列或列表頁的「管理頁面」連結時，會先確認 `sessionStorage` 是否有 `isAdmin` 標記，沒有登入就攔截並導向 `login.html`。
-
-```javascript
-document.querySelectorAll(".admin-link").forEach(function (link) {
-    link.addEventListener("click", function (e) {
-        if (sessionStorage.getItem("isAdmin") !== "true") {
-            e.preventDefault();
-            window.location.href = "login.html";
-        }
-    });
-});
-```
-
-
 ## AI 功能說明
 
 專題名稱包含「AI輔助」，AI 輔助的部分包括：
